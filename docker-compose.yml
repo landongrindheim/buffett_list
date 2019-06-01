@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    env_file:
+      - .env.development.database
+      - .env.test.database
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: hanami server --host 0.0.0.0
+    ports:
+      - 2300:2300
+    volumes:
+      - .:/usr/app/src/
+    depends_on:
+      - database
+
+volumes:
+  db_data:

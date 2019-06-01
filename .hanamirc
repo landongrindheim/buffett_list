@@ -1,0 +1,3 @@
+project=buffett_list
+test=rspec
+template=erb
