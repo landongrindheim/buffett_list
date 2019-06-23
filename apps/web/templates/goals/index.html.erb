@@ -1,9 +1,12 @@
-<div id="goals">
-  <div class="goal">
-    <h3>Finish this app</h3>
+<% if goals.any? %>
+  <div id="goals">
+    <% goals.each do |g| %>
+      <div class="goal">
+        <h3><%= g.title %></h3>
+        <p><%= g.description %></p>
+      </div>
+    <% end %>
   </div>
-
-  <div class="goal">
-    <h3>Learn Hanami</h3>
-  </div>
-</div>
+<% else %>
+  <p class="placeholder">It looks like there aren't any goals yet</p>
+<% end %>
