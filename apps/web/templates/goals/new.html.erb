@@ -1,0 +1,19 @@
+<h2>Add a goal</h2>
+
+<%=
+  form_for :goal, '/goals' do
+    div class: 'input' do
+      label      :title
+      text_field :title
+    end
+
+    div class: 'input' do
+      label      :description
+      text_field :description
+    end
+
+    div class: 'controls' do
+      submit 'Create Goal'
+    end
+  end
+%>
