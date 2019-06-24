@@ -4,10 +4,20 @@ module Web
       class Create
         include Web::Action
 
-        def call(params)
-          repo.create(params[:goal])
+        params do
+          required(:goal).schema do
+            required(:title).filled(:str?)
+          end
+        end
 
-          redirect_to '/goals'
+        def call(params)
+          if params.valid?
+            repo.create(params[:goal])
+
+            redirect_to '/goals'
+          else
+            self.status = 422
+          end
         end
 
         def repo

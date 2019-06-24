@@ -1,4 +1,14 @@
 <h2>Add a goal</h2>
+<% unless params.valid? %>
+  <div class="errors">
+    <h3>There was a problem with your submission</h3>
+    <ul>
+      <% params.error_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%=
   form_for :goal, '/goals' do

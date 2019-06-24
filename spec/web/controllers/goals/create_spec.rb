@@ -13,17 +13,35 @@ RSpec.describe Web::Controllers::Goals::Create, type: :action do
     repository.clear
   end
 
-  it 'creates a goal' do
-    action.call(params)
-    goal = repository.last
+  context 'with valid params' do
+    it 'creates a goal' do
+      action.call(params)
+      goal = repository.last
 
-    expect(goal.id).to_not be_nil
+      expect(goal.id).to_not be_nil
+    end
+
+    it 'redirects to the goals list' do
+      response = action.call(params)
+
+      expect(response[0]).to eq(302)
+      expect(response[1]['Location']).to eq('/goals')
+    end
   end
 
-  it 'redirects to the goals list' do
-    response = action.call(params)
+  context 'with invalid params' do
+    let(:params) { Hash[goal: {}] }
 
-    expect(response[0]).to eq(302)
-    expect(response[1]['Location']).to eq('/goals')
+    it 'returns HTTP client error' do
+      response = action.call(params)
+      expect(response[0]).to eq(422)
+    end
+
+    it 'dumps errors in the params' do
+      action.call(params)
+      errors = action.params.errors
+
+      expect(errors.dig(:goal, :title)).to eq(['is missing'])
+    end
   end
 end
