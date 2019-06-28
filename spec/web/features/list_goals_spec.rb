@@ -15,5 +15,7 @@ RSpec.describe 'Listing goals' do
     within '#goals' do
       expect(page).to have_css('.goal', count: 2)
     end
+
+    expect(page).to have_link('Add a goal')
   end
 end
