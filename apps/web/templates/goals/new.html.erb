@@ -11,7 +11,7 @@
 <% end %>
 
 <%=
-  form_for :goal, '/goals' do
+  form_for :goal, routes.goals_path do
     div class: 'input' do
       label      :title
       text_field :title

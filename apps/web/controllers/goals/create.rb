@@ -14,7 +14,7 @@ module Web
           if params.valid?
             repo.create(params[:goal])
 
-            redirect_to '/goals'
+            redirect_to routes.goals_path
           else
             self.status = 422
           end
